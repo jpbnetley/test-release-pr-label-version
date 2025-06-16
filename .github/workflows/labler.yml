@@ -22,16 +22,16 @@ jobs:
 
       - name: Create labels if not exist
         run: |
-          # Define your labels as name:description:color
+          # Define your labels as name|description|color
             labels=(
-              "release:version-required\:This PR requires a version bump label\:b60205"
-              "release:version-patch\:Patch version release\:0e8a16"
-              "release:version-minor\:Minor version release\:0052cc"
-              "release:version-major\:Major version release\:d93f0b"
+              "release:version-required|This PR requires a version bump label|b60205"
+              "release:version-patch|Patch version release|0e8a16"
+              "release:version-minor|Minor version release|0052cc"
+              "release:version-major|Major version release|d93f0b"
             )
 
             for entry in "${labels[@]}"; do
-              IFS="\:" read -r name desc color <<< "$entry"
+              IFS="|" read -r name desc color <<< "$entry"
               if ! gh label list | grep -q "^$name\b"; then
                 echo command: gh label create "$name" --description "$desc" --color "$color"
                 gh label create "$name" --description "$desc" --color "$color"
