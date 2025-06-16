@@ -33,7 +33,8 @@ jobs:
             for entry in "${labels[@]}"; do
               IFS=":" read -r name desc color <<< "$entry"
               if ! gh label list | grep -q "^$name\b"; then
-                gh label create "$name" --description "$desc" --color $color
+                echo 'command: gh label create "$name" --description "$desc" --color "$color"'
+                gh label create "$name" --description "$desc" --color "$color"
                 echo "Created label: $name"
               else
                 echo "Label already exists: $name"
