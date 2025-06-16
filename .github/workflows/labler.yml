@@ -28,6 +28,7 @@ jobs:
               "release:version-patch|Patch version release|0e8a16"
               "release:version-minor|Minor version release|0052cc"
               "release:version-major|Major version release|d93f0b"
+              "release:version-skip|Skip version release|bfd4f2"
             )
 
             for entry in "${labels[@]}"; do
@@ -45,7 +46,7 @@ jobs:
       - name: Check for version labels
         run: |
           labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]]; then
+          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]] && [[ ! "$labels" =~ "release:version-skip" ]]; then
             gh pr edit ${{ github.event.pull_request.number }} --add-label "release:version-required"
             echo "Added 'release:version-required' label to PR #${{ github.event.pull_request.number }}"
           else
@@ -56,7 +57,7 @@ jobs:
         if: github.event.action == 'labeled' || github.event.action == 'unlabeled'
         run: |
           labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          if [[ "$labels" =~ "release:version-required" ]] && ([[ "$labels" =~ "release:version-patch" ]] || [[ "$labels" =~ "release:version-minor" ]] || [[ "$labels" =~ "release:version-major" ]]); then
+          if [[ "$labels" =~ "release:version-required" ]] && ([[ "$labels" =~ "release:version-patch" ]] || [[ "$labels" =~ "release:version-minor" ]] || [[ "$labels" =~ "release:version-major" ]] || [[ ! "$labels" =~ "release:version-skip" ]]); then
             gh pr edit ${{ github.event.pull_request.number }} --remove-label "release:version-required"
             echo "Removed 'release:version-required' label from PR #${{ github.event.pull_request.number }}"
           else
