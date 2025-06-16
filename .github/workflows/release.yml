@@ -9,7 +9,7 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  run-on-merge:
+  release-from-version-label:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +26,9 @@ jobs:
             echo "minor"
           elif echo "$labels" | grep -q "^release:version-major$"; then
             echo "major"
+
+          elif lif echo "$labels" | grep -q "^release:version-skip$"; then
+            echo "release version skip"
           else
             echo "No release label found"
           fi

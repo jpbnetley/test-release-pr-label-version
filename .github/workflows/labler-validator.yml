@@ -23,7 +23,7 @@ jobs:
       - name: Validate version labels
         run: |
           labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]]; then
+          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]] && [[ ! "$labels" =~ "release:version-skip" ]] ; then
             gh pr edit ${{ github.event.pull_request.number }} --add-label "release:version-required"
             echo "Added 'release:version-required' label to PR #${{ github.event.pull_request.number }}"
             exit 1
