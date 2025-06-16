@@ -24,10 +24,10 @@ jobs:
         run: |
           # Define your labels as name:description:color
             labels=(
-              "release:version-required:This PR requires a version bump label:#b60205"
-              "release:version-patch:Patch version release:#0e8a16"
-              "release:version-minor:Minor version release:#0052cc"
-              "release:version-major:Major version release:#d93f0b"
+              "release:version-required:This PR requires a version bump label:b60205"
+              "release:version-patch:Patch version release:0e8a16"
+              "release:version-minor:Minor version release:0052cc"
+              "release:version-major:Major version release:d93f0b"
             )
 
             for entry in "${labels[@]}"; do
