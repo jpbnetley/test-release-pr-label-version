@@ -1,16 +1,30 @@
-# name: Release
+name: Release
 
-# on:
-#   push:
-#     branches: 
-#       - main
+on:
+  push:
+    branches: 
+      - main
 
-# jobs:
-#   run-on-merge:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+env:
+  gh_token: ${{ secrets.GITHUB_TOKEN }}
 
-#       - name: Run your job
-#         run: echo "PR merged to main! Running job..."
+jobs:
+  run-on-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check merge label
+        run: |
+          # Get all label names for the PR
+          labels=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name')
+
+          if echo "$labels" | grep -q "^release:version-patch$"; then
+            echo "patch"
+          elif echo "$labels" | grep -q "^release:version-minor$"; then
+            echo "minor"
+          elif echo "$labels" | grep -q "^release:version-major$"; then
+            echo "major"
+          else
+            echo "No release label found"
+          fi
