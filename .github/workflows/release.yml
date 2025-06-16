@@ -5,9 +5,6 @@ on:
     branches: 
       - main
 
-env:
-  GH_TOKEN: ${{ github.token }}
-
 jobs:
   release-from-version-label:
     name: Release from Version Label
@@ -21,5 +18,5 @@ jobs:
           major-release-script: echo 'major release script'
           minor-release-script: echo 'minor release script'
           patch-release-script: echo 'patch release script'
-        env: 
-          GITHUB_TOKEN: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+

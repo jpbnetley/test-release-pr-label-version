@@ -18,5 +18,11 @@ jobs:
     name: Add Version Required Label
     runs-on: ubuntu-latest
     steps:
-       - name: Labeler validation
-         uses: jpbnetley/release-pr-label-version/labler@main
+      - uses: actions/checkout@v4
+      
+      - name: Labeler validation
+        uses: jpbnetley/release-pr-label-version/labler@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+
