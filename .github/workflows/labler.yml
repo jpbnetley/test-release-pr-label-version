@@ -15,12 +15,13 @@ permissions:
 
 jobs:
   add-version-required-label:
+    name: Add Version Required Label
     runs-on: ubuntu-latest
     steps:
-
       - uses: actions/checkout@v4
 
       - name: Create labels if not exist
+        if: github.event.action == 'opened'
         run: |
           # Define your labels as name|description|color
             labels=(
