@@ -18,18 +18,10 @@ jobs:
     name: Validate Version Required Label
     runs-on: ubuntu-latest
     steps:
-
-      - uses: actions/checkout@v4        
-
-      - name: Validate version labels
-        run: |
-          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]] && [[ ! "$labels" =~ "release:version-skip" ]] ; then
-            gh pr edit ${{ github.event.pull_request.number }} --add-label "release:version-required"
-            echo "Added 'release:version-required' label to PR #${{ github.event.pull_request.number }}"
-            exit 1
-          else
-            echo "Version label already present in PR #${{ github.event.pull_request.number }}"
-            exit 0
-          fi
+      - uses: actions/checkout@v4
+      
+      - name: Labeler validation
+        uses: jpbnetley/release-pr-label-version/labler-validator@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 

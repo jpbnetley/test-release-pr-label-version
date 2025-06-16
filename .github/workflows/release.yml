@@ -5,9 +5,6 @@ on:
     branches: 
       - main
 
-env:
-  GH_TOKEN: ${{ github.token }}
-
 jobs:
   release-from-version-label:
     name: Release from Version Label
@@ -15,20 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check merge label
-        run: |
-          # Get all label names for the PR
-          PR_NUMBER=$(gh pr list --repo "$REPO" --base main --state merged --json number,mergedAt --jq 'sort_by(.mergedAt) | last.number')
-          labels=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name')
-
-          if echo "$labels" | grep -q "^release:version-patch$"; then
-            echo "patch"
-          elif echo "$labels" | grep -q "^release:version-minor$"; then
-            echo "minor"
-          elif echo "$labels" | grep -q "^release:version-major$"; then
-            echo "major"
-          elif echo "$labels" | grep -q "^release:version-skip$"; then
-            echo "release version skip"
-          else
-            echo "No release label found"
-          fi
+      - name: Labeler release
+        uses: jpbnetley/release-pr-label-version/labler-release@main
+        with:
+          major-release-script: echo 'major release script'
+          minor-release-script: echo 'minor release script'
+          patch-release-script: echo 'patch release script'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
