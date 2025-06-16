@@ -17,6 +17,7 @@ jobs:
       - name: Check merge label
         run: |
           # Get all label names for the PR
+          PR_NUMBER=$(gh pr list --repo "$REPO" --base main --state merged --json number,mergedAt --jq 'sort_by(.mergedAt) | last.number')
           labels=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels --jq '.labels[].name')
 
           if echo "$labels" | grep -q "^release:version-patch$"; then
