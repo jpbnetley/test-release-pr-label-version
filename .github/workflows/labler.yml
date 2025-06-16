@@ -22,10 +22,23 @@ jobs:
 
       - name: Create labels
         run: |
-          gh label create "release:version-required" --description "This PR requires a version bump label"
-          gh label create "release:version-patch" --description "Patch release"
-          gh label create "release:version-minor" --description "Minor release"
-          gh label create "release:version-major" --description "Major release"
+          # Define your labels as name:description:color
+            labels=(
+              "release:version-required:This PR requires a version bump label:ededed"
+              "release:version-patch:Patch version release:0e8a16"
+              "release:version-minor:Minor version release:fbca04"
+              "release:version-major:Major version release:d93f0b"
+            )
+
+            for entry in "${labels[@]}"; do
+              IFS=":" read -r name desc color <<< "$entry"
+              if ! gh label list | grep -q "^$name\b"; then
+                gh label create "$name" --description "$desc" --color "$color"
+                echo "Created label: $name"
+              else
+                echo "Label already exists: $name"
+              fi
+            done
         
 
       - name: Check for version labels
