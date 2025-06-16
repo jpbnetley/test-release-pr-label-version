@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   add-version-required-label:
     runs-on: ubuntu-latest
@@ -16,6 +19,7 @@ jobs:
           gh label create "release:version-patch" --description "Patch release"
           gh label create "release:version-minor" --description "Minor release"
           gh label create "release:version-major" --description "Major release"
+        
 
       - name: Check for version labels
         run: |
@@ -26,7 +30,7 @@ jobs:
           else
             echo "Version label already present in PR #${{ github.event.pull_request.number }}"
           fi
-          
+
       - name: Remove version-required label if version label is present
         if: github.event.action == 'labeled' || github.event.action == 'unlabeled'
         run: |
