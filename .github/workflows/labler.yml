@@ -1,0 +1,39 @@
+name: Ensure Release Version Label
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize]
+    branches:
+      - main
+
+jobs:
+  add-version-required-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create labels
+        run: |
+          gh label create "release:version-required" --description "This PR requires a version bump label"
+          gh label create "release:version-patch" --description "Patch release"
+          gh label create "release:version-minor" --description "Minor release"
+          gh label create "release:version-major" --description "Major release"
+
+      - name: Check for version labels
+        run: |
+          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          if [[ ! "$labels" =~ "release:version-patch" ]] && [[ ! "$labels" =~ "release:version-minor" ]] && [[ ! "$labels" =~ "release:version-major" ]]; then
+            gh pr edit ${{ github.event.pull_request.number }} --add-label "release:version-required"
+            echo "Added 'release:version-required' label to PR #${{ github.event.pull_request.number }}"
+          else
+            echo "Version label already present in PR #${{ github.event.pull_request.number }}"
+          fi
+          
+      - name: Remove version-required label if version label is present
+        if: github.event.action == 'labeled' || github.event.action == 'unlabeled'
+        run: |
+          labels=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          if [[ "$labels" =~ "release:version-required" ]] && ([[ "$labels" =~ "release:version-patch" ]] || [[ "$labels" =~ "release:version-minor" ]] || [[ "$labels" =~ "release:version-major" ]]); then
+            gh pr edit ${{ github.event.pull_request.number }} --remove-label "release:version-required"
+            echo "Removed 'release:version-required' label from PR #${{ github.event.pull_request.number }}"
+          else
+            echo "'release:version-required' label not present or no version label found in PR #${{ github.event.pull_request.number }}"
+          fi

@@ -1,0 +1,16 @@
+# name: Release
+
+# on:
+#   push:
+#     branches: 
+#       - main
+
+# jobs:
+#   run-on-merge:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Run your job
+#         run: echo "PR merged to main! Running job..."
