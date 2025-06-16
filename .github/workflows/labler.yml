@@ -9,6 +9,10 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   add-version-required-label:
     runs-on: ubuntu-latest
