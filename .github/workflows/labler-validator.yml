@@ -10,7 +10,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
-  pull-requests: read
+  pull-requests: write
   contents: read
 
 jobs:
