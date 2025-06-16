@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  gh_token: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   run-on-merge:
