@@ -19,4 +19,3 @@ jobs:
           minor-release-script: echo 'minor release script'
           patch-release-script: echo 'patch release script'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
