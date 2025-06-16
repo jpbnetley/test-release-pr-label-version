@@ -26,8 +26,7 @@ jobs:
             echo "minor"
           elif echo "$labels" | grep -q "^release:version-major$"; then
             echo "major"
-
-          elif lif echo "$labels" | grep -q "^release:version-skip$"; then
+          elif echo "$labels" | grep -q "^release:version-skip$"; then
             echo "release version skip"
           else
             echo "No release label found"
