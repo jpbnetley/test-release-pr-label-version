@@ -18,5 +18,3 @@ and check if any release labels have been added.
 
 ## Ref
   The composit actions is used from: https://github.com/jpbnetley/release-pr-label-version
-
-  
