@@ -17,4 +17,4 @@ and check if any release labels have been added.
   The action that will build, and create the version for the release (in this case, it just logs out the release type)
 
 ## Ref
-  The composit actions is used from: https://github.com/jpbnetley/release-pr-label-version
+The composite actions is used from: https://github.com/jpbnetley/release-pr-label-version
