@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Labeler validation
-        uses: jpbnetley/release-pr-label-version/labler-validator@main
+        uses: jpbnetley/release-pr-label-version/labler-validator@feat/mono-repo
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
