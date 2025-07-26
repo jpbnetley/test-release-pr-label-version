@@ -24,5 +24,3 @@ jobs:
         uses: jpbnetley/release-pr-label-version/labler@feat/mono-repo
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-
