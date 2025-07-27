@@ -5,6 +5,9 @@ on:
     branches: 
       - main
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   release-from-version-label:
     name: Release from Version Label
@@ -13,9 +16,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Labeler release
-        uses: jpbnetley/release-pr-label-version/labler-release@main
+        uses: jpbnetley/release-pr-label-version/labler-release@dev
         with:
           major-release-script: echo 'major release script'
           minor-release-script: echo 'minor release script'
           patch-release-script: echo 'patch release script'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-branch-name: main
