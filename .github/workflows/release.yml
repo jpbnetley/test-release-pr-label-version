@@ -26,5 +26,5 @@ jobs:
           major-release-script: npm version major --no-git-tag-version
           minor-release-script: npm version minor --no-git-tag-version
           patch-release-script: npm version patch --no-git-tag-version
-          release-branch-name: main
+          release-branch-name: ${{ github.ref_name }}
           get-current-version-script: node -p "require('./package.json').version"
