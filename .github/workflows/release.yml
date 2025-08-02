@@ -4,6 +4,7 @@ on:
   push:
     branches: 
       - main
+      - dev
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -15,10 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Labeler release
-        uses: jpbnetley/release-pr-label-version/labler-release@dev
+      - uses: setup-node
         with:
-          major-release-script: echo 'major release script'
-          minor-release-script: echo 'minor release script'
-          patch-release-script: echo 'patch release script'
+          node-version: '24'
+
+      - name: Labeler release
+        uses: jpbnetley/release-pr-label-version/labler-release@feat/git
+        with:
+          major-release-script: npm version major --no-git-tag-version
+          minor-release-script: npm version minor --no-git-tag-version
+          patch-release-script: npm version patch --no-git-tag-version
           release-branch-name: main
+          get-current-version-script: node -p "require('./package.json').version"
