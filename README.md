@@ -13,6 +13,7 @@ and check if any release labels have been added.
 - labeler: adds missing labels, and validates that the labels are added.
   - Wil add a `release:version-required` if no release label is added.
   - If a release label is added, the `release:version-required` is removed
+  - if its a pre-release, the pre-release label is added
 - release:
   The action that will build, and create the version for the release (in this case, it just logs out the release type)
 
