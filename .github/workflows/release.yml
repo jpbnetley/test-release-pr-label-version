@@ -1,24 +1,38 @@
 name: Release
-
 on:
   push:
     branches: 
       - main
+      - dev
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ACTIONS_STEP_DEBUG: true
+  ACTIONS_RUNNER_DEBUG: true
 
 jobs:
   release-from-version-label:
     name: Release from Version Label
     runs-on: ubuntu-latest
+    
+    permissions:
+      pull-requests: write
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Labeler release
-        uses: jpbnetley/release-pr-label-version/labler-release@dev
+      - uses: actions/setup-node@v4
         with:
-          major-release-script: echo 'major release script'
-          minor-release-script: echo 'minor release script'
-          patch-release-script: echo 'patch release script'
-          release-branch-name: main
+          node-version: '24'
+
+      - name: Labeler release
+        uses: jpbnetley/release-pr-label-version/labler-release@feat/git
+        with:
+          pre-release-script: npm version prerelease --preid=dev --no-git-tag-version
+          major-release-script: npm version major --no-git-tag-version
+          minor-release-script: npm version minor --no-git-tag-version
+          patch-release-script: npm version patch --no-git-tag-version
+          release-branch-name: ${{ github.ref_name }}
+          get-current-version-script: node -p "require('./package.json').version"
+
