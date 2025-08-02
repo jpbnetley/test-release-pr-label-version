@@ -12,10 +12,11 @@ jobs:
   release-from-version-label:
     name: Release from Version Label
     runs-on: ubuntu-latest
+    
     permissions:
       pull-requests: write
       contents: write
-      
+
     steps:
       - uses: actions/checkout@v4
 
