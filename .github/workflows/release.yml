@@ -29,7 +29,7 @@ jobs:
       - name: Labeler release
         uses: jpbnetley/release-pr-label-version/labler-release@feat/git
         with:
-          pre-release-script: npm version prerelease --pre-id=dev --no-git-tag-version
+          pre-release-script: npm version prerelease --preid=dev --no-git-tag-version
           major-release-script: npm version major --no-git-tag-version
           minor-release-script: npm version minor --no-git-tag-version
           patch-release-script: npm version patch --no-git-tag-version
