@@ -8,7 +8,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_STEP_DEBUG: true
-  # ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}
+  ACTIONS_RUNNER_DEBUG: true
 
 jobs:
   release-from-version-label:
