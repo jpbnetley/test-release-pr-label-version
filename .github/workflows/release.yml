@@ -7,6 +7,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  debug: true
 
 jobs:
   release-from-version-label:
@@ -34,4 +35,3 @@ jobs:
           release-branch-name: ${{ github.ref_name }}
           get-current-version-script: node -p "require('./package.json').version"
 
-          
