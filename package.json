@@ -1,0 +1,20 @@
+{
+  "name": "test-release-pr-label-version",
+  "version": "1.0.0",
+  "description": "> release prs with labels",
+  "homepage": "https://github.com/jpbnetley/test-release-pr-label-version#readme",
+  "bugs": {
+    "url": "https://github.com/jpbnetley/test-release-pr-label-version/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpbnetley/test-release-pr-label-version.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
