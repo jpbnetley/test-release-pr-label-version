@@ -10,11 +10,11 @@ and check if any release labels have been added.
 ## Actions explained
 - labeler-validator: checks that the required labels are added.  
   This should be used with the branch protection rules so that a release pr cannot be merged if the correct label is not selected.
-- release:
-  The action that will build, and create the version for the release
-- Wil add a `release:version-required` if no release label is added.
+- labeler: adds missing labels, and validates that the labels are added.
+  - Wil add a `release:version-required` if no release label is added.
   - If a release label is added, the `release:version-required` is removed
-  - if its a pre-release, the pre-release label is added
+- release:
+  The action that will build, and create the version for the release (in this case, it just logs out the release type)
 
 ## Ref
 The composite actions is used from: https://github.com/jpbnetley/release-pr-label-version

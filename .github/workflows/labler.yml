@@ -1,4 +1,4 @@
-name: Ensure Release Version Label validator
+name: Ensure Release Version Label
 
 on:
   pull_request:
@@ -14,11 +14,12 @@ permissions:
   contents: read
 
 jobs:
-  validate-version-required-label:
-    name: Validate Version Required Label
+  add-version-required-label:
+    name: Add Version Required Label
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
       - name: Labeler validation
-        uses: jpbnetley/release-pr-label-version/labler-validator@dev
+        uses: jpbnetley/release-pr-label-version/labler@dev
+
