@@ -19,7 +19,7 @@ jobs:
     name: Validate Version Required Label
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Labeler validation
         uses: jpbnetley/release-pr-label-version/labler-validator@feat/git
