@@ -6,7 +6,6 @@ on:
       - dev
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
 
@@ -26,6 +25,13 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.GH_APPLICATION_ID }}
+          private-key: ${{ secrets.GH_APPLICATION_KEY }}
+
       - name: Labeler release
         uses: jpbnetley/release-pr-label-version/labler-release@feat/git
         with:
@@ -35,4 +41,6 @@ jobs:
           patch-release-script: npm version patch --no-git-tag-version
           release-branch-name: ${{ github.ref_name }}
           get-current-version-script: node -p "require('./package.json').version"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
