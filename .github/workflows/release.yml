@@ -19,11 +19,11 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: 24
 
       - name: Generate a token
         id: generate-token
@@ -40,6 +40,7 @@ jobs:
           minor-release-script: npm version minor --no-git-tag-version
           patch-release-script: npm version patch --no-git-tag-version
           release-branch-name: ${{ github.ref_name }}
+          pre-release-branch-name: dev
           get-current-version-script: node -p "require('./package.json').version"
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
