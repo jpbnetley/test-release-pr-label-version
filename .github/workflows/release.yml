@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate a token
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.GH_APPLICATION_ID }}
           private-key: ${{ secrets.GH_APPLICATION_KEY }}
