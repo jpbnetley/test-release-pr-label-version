@@ -29,7 +29,7 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.GH_APPLICATION_ID }}
+          client-id: ${{ vars.GH_APPLICATION_ID }}
           private-key: ${{ secrets.GH_APPLICATION_KEY }}
 
       - name: Labeler release
